@@ -1,1 +1,29 @@
-language: go
+languages: go
+
+stages:
+  - img-build
+  - unit-test
+  - img-deploy
+  - notification
+
+sudo: required
+services:
+  - docker
+
+branches:
+  only:
+    - master
+    - development
+
+before_script:
+  - docker info
+  - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin
+
+
+jobs:
+  include:
+    - stage: Img-Build
+      name: img-build
+      script:
+        - docker build -t $CI_REGISTRY_USER/kitana .
+        - docker image ls
