@@ -1,4 +1,5 @@
-languages: go
+language: go
+os: linux
 
 stages:
   - img-build
@@ -6,7 +7,6 @@ stages:
   - img-deploy
   - notification
 
-sudo: required
 services:
   - docker
 
