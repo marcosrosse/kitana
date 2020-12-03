@@ -4,7 +4,7 @@ os: linux
 stages:
   - img-build
   - unit-test
-  - img-deploy
+  - deploy-registry
   - notification
 
 services:
@@ -22,8 +22,21 @@ before_script:
 
 jobs:
   include:
-    - stage: Img-Build
+    - stage: Build Docker Image
       name: img-build
       script:
         - docker build -t $CI_REGISTRY_USER/kitana .
         - docker image ls
+
+jobs:
+  include:
+    - stage: Unit Test Golang
+      name: unit-test
+      script: go test -v
+
+jobs:
+  include:
+    - stage: Deploy on Docker Hub
+      name: deploy-registry
+      script: docker push $CI_REGISTRY_USER/kitana
+
