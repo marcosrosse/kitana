@@ -26,17 +26,12 @@ jobs:
       stage: img-build
       script:
         - docker build -t $CI_REGISTRY_USER/kitana .
-        - docker image ls
+        - docker push $CI_REGISTRY_USER/kitana
 
     - name: "Unit Test Golang"
       stage: unit-test
       script:
-        - go test -v
-
-    - name: "Deploy to Docker Hub"
-      stage: deploy-registry
-      after_script:
-        - docker push $CI_REGISTRY_USER/kitana
+        - go test -v        
     
     - name: "Notifying on Success"
       stage: notification
