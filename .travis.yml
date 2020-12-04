@@ -32,13 +32,13 @@ jobs:
       stage: unit-test
       script:
         - go test -v        
-    
+       
     - name: "Notifying on Success"
       stage: notification
       after_success:
-        - echo "funfou"
+        - ./send.sh success $WEBHOOK_URL
 
     - name: "Notifying on Failure"
       stage: notification
       after_failure:
-        - echo "deu ruim"
+        - ./send.sh failure $WEBHOOK_URL
