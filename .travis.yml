@@ -22,21 +22,19 @@ before_script:
 
 jobs:
   include:
-    - stage: Build Docker Image
-      name: img-build
+    - name: "Build Docker Image"
+      stage: img-build
       script:
         - docker build -t $CI_REGISTRY_USER/kitana .
         - docker image ls
 
-jobs:
-  include:
-    - stage: Unit Test Golang
-      name: unit-test
-      script: go test -v
+    - name: "Unit Test Golang"
+      stage: unit-test
+      script:
+        - go test -v
 
-jobs:
-  include:
-    - stage: Deploy on Docker Hub
-      name: deploy-registry
-      script: docker push $CI_REGISTRY_USER/kitana
+    - name: "Deploy on Docker Hub"
+      stage: deploy-registry      
+      script:
+        - docker push $CI_REGISTRY_USER/kitana
 
