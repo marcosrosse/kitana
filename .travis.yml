@@ -35,5 +35,16 @@ jobs:
 
     - name: "Deploy to Docker Hub"
       stage: deploy-registry
-      after_success:
+      after_script:
         - docker push $CI_REGISTRY_USER/kitana
+    
+    - name: "Notifying on Success"
+      stage: notification
+      after_success:
+        - echo "funfou"
+
+    - name: "Notifying on Failure"
+      stage: notification
+      after_success:
+        - echo "deu ruim"
+        
