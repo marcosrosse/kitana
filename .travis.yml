@@ -18,6 +18,7 @@ branches:
 before_script:
   - docker info
   - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin
+  - TRAVIS_REPO_SLUG=${TRAVIS_REPO_SLUG##*/}
 
 
 jobs:
@@ -25,8 +26,8 @@ jobs:
     - name: "Build Docker Image"
       stage: img-build
       script:
-        - docker build -t $CI_REGISTRY_USER/kitana .
-        - docker push $CI_REGISTRY_USER/kitana
+        - docker build -t $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG .
+        - docker push $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG
 
     - name: "Unit Test Golang"
       stage: unit-test
