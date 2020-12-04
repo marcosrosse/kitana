@@ -45,6 +45,5 @@ jobs:
 
     - name: "Notifying on Failure"
       stage: notification
-      after_success:
+      after_failure:
         - echo "deu ruim"
-        
