@@ -33,8 +33,7 @@ jobs:
       script:
         - go test -v
 
-    - name: "Deploy on Docker Hub"
-      stage: deploy-registry      
-      script:
+    - name: "Deploy to Docker Hub"
+      stage: deploy-registry
+      after_success:
         - docker push $CI_REGISTRY_USER/kitana
-
