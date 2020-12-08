@@ -22,16 +22,21 @@ before_script:
 
 jobs:
   include:
-    - name: "Build Docker Image"
-      stage: img-build
+    - name: "Lint"
+      stage: unit-test
       script:
-        - docker build -t $CI_REGISTRY_USERR/$TRAVIS_REPO_SLUG .
-        - docker push $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG
-
+        - travis lint .travis.yml
+    
     - name: "Unit Test Golang"
       stage: unit-test
       script:
-        - go test -v        
+        - go test -v
+    
+    - name: "Build Docker Image"
+      stage: img-build
+      script:
+        - docker build -t $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG .
+        - docker push $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG        
        
       after_success:
         - chmod +x send.sh
