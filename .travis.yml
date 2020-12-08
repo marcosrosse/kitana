@@ -22,6 +22,17 @@ before_script:
 
 jobs:
   include:
+    - name: "Build Docker Image"
+      stage: img-build
+      script:
+        - docker build -t $CI_REGISTRY_USERR/$TRAVIS_REPO_SLUG .
+        - docker push $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG
+
+    - name: "Unit Test Golang"
+      stage: unit-test
+      script:
+        - go test -v        
+       
     - name: "Notifying on Success"
       after_success:
         - chmod +x send.sh
@@ -31,14 +42,3 @@ jobs:
       after_failure:
         - chmod +x send.sh
         - ./send.sh failure $WEBHOOK_URL
-
-    - name: "Build Docker Image"
-      stage: img-build
-      script:
-        - docker buildd -t $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG .
-        - docker push $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG
-
-    - name: "Unit Test Golang"
-      stage: unit-test
-      script:
-        - go test -v        
