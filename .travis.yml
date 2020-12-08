@@ -34,13 +34,11 @@ jobs:
         - go test -v        
        
     - name: "Notifying on Success"
-      stage: notification
       after_success:
         - chmod +x send.sh
         - ./send.sh success $WEBHOOK_URL
 
     - name: "Notifying on Failure"
-      stage: notification
       after_failure:
         - chmod +x send.sh
         - ./send.sh failure $WEBHOOK_URL
