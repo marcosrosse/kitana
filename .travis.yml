@@ -25,7 +25,7 @@ jobs:
     - name: "Build Docker Image"
       stage: img-build
       script:
-        - docker build -t $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG .
+        - docker buildd -t $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG .
         - docker push $CI_REGISTRY_USER/$TRAVIS_REPO_SLUG
 
     - name: "Unit Test Golang"
