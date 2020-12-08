@@ -22,6 +22,16 @@ before_script:
 
 jobs:
   include:
+    - name: "Notifying on Success"
+      after_success:
+        - chmod +x send.sh
+        - ./send.sh success $WEBHOOK_URL
+
+    - name: "Notifying on Failure"
+      after_failure:
+        - chmod +x send.sh
+        - ./send.sh failure $WEBHOOK_URL
+
     - name: "Build Docker Image"
       stage: img-build
       script:
@@ -32,13 +42,3 @@ jobs:
       stage: unit-test
       script:
         - go test -v        
-       
-    - name: "Notifying on Success"
-      after_success:
-        - chmod +x send.sh
-        - ./send.sh success $WEBHOOK_URL
-
-    - name: "Notifying on Failure"
-      after_failure:
-        - chmod +x send.sh
-        - ./send.sh failure $WEBHOOK_URL
