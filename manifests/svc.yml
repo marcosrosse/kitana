@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  kitana-svc
+spec:
+  selector:
+    app: kitana
+  type: ClusterIP
+  ports:
+  - name:  port-80
+    port:  80
+    targetPort:  8080

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  kitana
+  labels:
+    name:  kitana
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        name:  kitana
+    spec:
+      containers:
+      - image:  marcosrossem/kitana:latest
+        name:  kitana
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        env:
+        - name:  FOO
+          value:  BAR       
+        ports:
+        - containerPort:  8080
+          name:  kitana
+        volumeMounts:
+        - mountPath: /data
+          name: data
+      volumes:
+        - name: data
+          emptyDir: {}
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      name: kitana
