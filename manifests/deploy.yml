@@ -20,6 +20,8 @@ spec:
       containers:
       - image:  marcosrossem/kitana:latest
         name:  kitana
+        ports:
+        - containerPort: 8080
         resources:
           requests:
             cpu: "20m"
