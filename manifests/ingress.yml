@@ -17,4 +17,4 @@ spec:
           service:
             name: kitana-svc
             port:
-              number: 443
+              number: 8080
