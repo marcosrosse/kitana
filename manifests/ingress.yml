@@ -4,6 +4,8 @@ metadata:
   name: kitana-ingress
   namespace: kitana
   annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     kubernetes.io/ingress.class: addon-http-application-routing
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
