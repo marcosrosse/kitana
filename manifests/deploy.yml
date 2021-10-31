@@ -4,6 +4,8 @@ metadata:
   name:  kitana
   labels:
     name:  kitana
+    app: kitana
+    language: golang
 spec:
   strategy:
     rollingUpdate:
