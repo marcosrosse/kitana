@@ -26,10 +26,7 @@ spec:
             memory: "55M"
         env:
         - name:  FOO
-          value:  BAR       
-        ports:
-        - containerPort:  8008
-          name:  kitana
+          value:  BAR
         volumeMounts:
         - mountPath: /data
           name: data
